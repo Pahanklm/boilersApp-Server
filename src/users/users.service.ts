@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
+    [x: string]: any;
     constructor(
         @InjectModel(User)
         private userModel: typeof User
@@ -44,6 +45,35 @@ export class UsersService {
         user.password = hashedPassword;
         user.email = createUserDto.email;
 
+        user.registrationLocation = {
+            registrationCity: createUserDto.registrationCity,
+            registrationStreet: createUserDto.registrationStreet,
+        };
+
         return user.save();
+    }
+
+    async getRegistrationLocation(username: string) {
+        try {
+            const user = await this.UsersService.findOne({ where: { username } });
+            if (user && user.registrationLocation) {
+                return user.registrationLocation;
+            } else {
+                return { error: 'No registration location found.' };
+            }
+        } catch (error) {
+            return { error: 'An error occurred while fetching registration location.' };
+        }
+    }
+    
+    async updateCurrentLocation(userId: string, currentCity: string, currentStreet: string): Promise<void> {
+        const user = await this.userModel.findByPk(userId);
+        if (user) {
+            user.currentLocation = {
+                currentCity: currentCity,
+                currentStreet: currentStreet,
+            };
+            await user.save();
+        }
     }
 }

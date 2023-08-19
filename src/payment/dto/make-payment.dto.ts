@@ -1,6 +1,9 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class MakePaymentDto {
-    @IsNotEmpty()
-    readonly amount: number;
+  @IsNotEmpty()
+  readonly amount: number;
+
+  @IsOptional()
+  readonly description?: string;
 }

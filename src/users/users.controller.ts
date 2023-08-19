@@ -6,6 +6,7 @@ import {
     Body,
     Header,
     HttpCode,
+    Param,
     Post,
     Request,
     UseGuards,
@@ -15,14 +16,15 @@ import { LocalAuthGuard } from 'src/auth/local.auth.guard';
 
 @Controller('users')
 export class UsersController {
-    constructor(private readonly UsersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) {}
 
     @Post('/signup')
     @HttpCode(HttpStatus.CREATED)
     @Header('content-type', 'application/json')
     createUser(@Body() createUserDto: createUserDto) {
-        return this.UsersService.create(createUserDto);
+        return this.usersService.create(createUserDto);
     }
+
     @Post('/login')
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
@@ -30,14 +32,48 @@ export class UsersController {
     login(@Request() req) {
         return { user: req.user, msg: 'logged in' };
     }
+
     @Get('/login-check')
     @UseGuards(AuthenticatedGuard)
     loginCheck(@Request() req) {
         return req.user;
     }
+
     @Get('/logout')
     logout(@Request() req) {
         req.session.destroy();
         return { msg: 'session has ended' };
+    }
+
+    @Get('/registration-location')
+    @UseGuards(AuthenticatedGuard)
+    async getRegistrationLocation(@Request() req) {
+        try {
+            const registrationLocation = await this.usersService.getRegistrationLocation(req.user.username);
+            return registrationLocation;
+        } catch (error) {
+            return { error: 'An error occurred while fetching registration location.' };
+        }
+    }
+
+    @Post('/update-location')
+    @UseGuards(AuthenticatedGuard)
+    async updateLocation(
+        @Request() req,
+        @Body('currentCity') currentCity: string,
+        @Body('currentStreet') currentStreet: string,
+    ) {
+        try {
+            const { username } = req.user; // Получаем username из текущего пользователя
+            const user = await this.usersService.findOne({ where: { username } });
+            if (!user) {
+                return { error: 'User not found.' };
+            }
+
+            await this.usersService.updateCurrentLocation(user.id, currentCity, currentStreet);
+            return { message: 'Location updated successfully.' };
+        } catch (error) {
+            return { error: 'An error occurred while updating location.' };
+        }
     }
 }

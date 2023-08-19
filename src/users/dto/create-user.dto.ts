@@ -1,9 +1,6 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class createUserDto {
-    static password(password: any, arg1: number) {
-        throw new Error('Method not implemented.');
-    }
     @IsNotEmpty()
     readonly username: string;
 
@@ -12,6 +9,17 @@ export class createUserDto {
 
     @IsNotEmpty()
     readonly email: string;
-    static username: string;
-    static email: string;
+
+
+    @IsOptional() 
+    readonly registrationCity: string;
+
+    @IsOptional() 
+    readonly registrationStreet: string;
+
+    @IsOptional() 
+    readonly currentCity: string;
+
+    @IsOptional() 
+    readonly currentStreet: string;
 }

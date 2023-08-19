@@ -1,25 +1,25 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "test",
-    "host": "localhost",
+    "username": "freedb_lalka",
+    "password": "DdnH!93!hduTaBU",
+    "database": "freedb_Boilers_shop",
+    "host": "sql.freedb.tech",
     "dialect": "mysql",
     "port": 3306
   },
   "test": {
-    "username": "root",
-    "password": "root",
-    "database": "test",
-    "host": "localhost",
+    "username": "freedb_lalka",
+    "password": "DdnH!93!hduTaBU",
+    "database": "freedb_Boilers_shop",
+    "host": "sql.freedb.tech",
     "dialect": "mysql",
     "port": 3306
   },
   "production": {
-    "username": "root",
-    "password": "root",
-    "database": "test",
-    "host": "localhost",
+    "username": "freedb_lalka",
+    "password": "DdnH!93!hduTaBU",
+    "database": "freedb_Boilers_shop",
+    "host": "sql.freedb.tech",
     "dialect": "mysql",
     "port": 3306
   }

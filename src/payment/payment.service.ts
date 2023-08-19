@@ -1,6 +1,7 @@
 import { MakePaymentDto } from './dto/make-payment.dto';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { CheckPaymentDto } from './dto/check-payment.dto';
 
 @Injectable()
 export class PaymentService {
@@ -8,7 +9,7 @@ export class PaymentService {
         try {
             const { data } = await axios({
                 method: 'POST',
-                url: 'https://api.yookassa.ru/v3/payments',
+                url: ' https://api.yookassa.ru/v3/payments',
                 headers: {
                     'Content-Type': 'application/json',
                     'Idempotence-Key': Date.now(),
@@ -26,9 +27,9 @@ export class PaymentService {
                     capture: true,
                     confirmation: {
                         type: 'redirect',
-                        return_url: 'http://localhost:3001/order',
+                        return_url: 'http://localhost:3000/order',
                     },
-                    description: 'zakaz 1',
+                    description: MakePaymentDto.description,
                 },
             });
             return data;
@@ -36,4 +37,21 @@ export class PaymentService {
             throw new ForbiddenException(error);
         }
     }
-}
+
+    async checkPayment(checkPaymentDto: CheckPaymentDto) {
+        try {
+          const { data } = await axios({
+            method: 'GET',
+            url: `https://api.yookassa.ru/v3/payments/${checkPaymentDto.paymentId}`,
+            auth: {
+              username: '228652',
+              password: 'test_cgRqfaWhzSVpgc_SrYcLbyhtZtp-MjPFizmvJma9vWE',
+            },
+          });
+    
+          return data;
+        } catch (error) {
+          throw new ForbiddenException(error);
+        }
+      }
+    }

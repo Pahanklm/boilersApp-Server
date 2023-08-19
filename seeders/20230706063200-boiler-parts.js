@@ -44,12 +44,10 @@ module.exports = {
                 description: faker.lorem.sentence(10),
                 images: JSON.stringify(
                     [...Array(7)].map(
-                        () =>
-                            `${faker.image.urlLoremFlickr()}?random=${faker.string.numeric(
-                                30
-                            )}`
-                    )
-                ),
+                      () =>
+                        `${faker.image.technics()}?random=${faker.random.numeric(30)}`,
+                    ),
+                  ),            
                 vendor_code: faker.internet.password(),
                 in_stock: faker.string.numeric(1),
                 bestseller: faker.datatype.boolean(),
