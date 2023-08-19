@@ -17,7 +17,7 @@ async function bootstrap() {
 
         app.enableCors({
             credentials: true,
-            origin: ["http://localhost:3000"],
+            origin: ["http://localhost:3000" , 'https://client-shop-ea5n.onrender.com/'],
         })
 
     await app.listen(process.env.PORT || 3001);
