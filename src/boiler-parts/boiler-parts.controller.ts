@@ -8,7 +8,6 @@ import {
     Param,
     Post,
     Body,
-    Search,
 } from '@nestjs/common';
 
 @Controller('boiler-parts')
