@@ -27,7 +27,7 @@ export class PaymentService {
                     capture: true,
                     confirmation: {
                         type: 'redirect',
-                        return_url: 'http://localhost:3000/order',
+                        return_url: 'https://client-shop-production.up.railway.app/order',
                     },
                     description: MakePaymentDto.description,
                 },
