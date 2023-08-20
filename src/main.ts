@@ -17,7 +17,7 @@ async function bootstrap() {
 
         app.enableCors({
             credentials: true,
-            origin: ["http://localhost:3000" , 'https://client-shop-production.up.railway.app/'],
+            origin: ["http://localhost:3000" , 'https://client-shop-production.up.railway.app'],
         })
 
     await app.listen(process.env.PORT || 3001);
