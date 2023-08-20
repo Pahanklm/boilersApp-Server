@@ -57,7 +57,7 @@ export class UsersService {
         try {
             const user = await this.UsersService.findOne({ where: { username } });
             if (user && user.registrationLocation) {
-                return user.registrationLocation;
+                return user;
             } else {
                 return { error: 'No registration location found.' };
             }
