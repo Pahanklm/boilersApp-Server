@@ -47,12 +47,8 @@ export class UsersController {
     @Get('/registration-location')
     @UseGuards(AuthenticatedGuard)
     async getRegistrationLocation(@Request() req) {
-        try {
             const registrationLocation = await this.usersService.getRegistrationLocation(req.user.username);
             return registrationLocation;
-        } catch (error) {
-            return { error: 'An error occurred while fetching registration location.' };
-        }
     }
 
     @Post('/update-location')
