@@ -63,7 +63,6 @@ export class UsersService {
             }
         } catch (error) {
             console.log(error);
-            return { error: 'An error occurred while fetching registration location.' };
         }
     }
     
