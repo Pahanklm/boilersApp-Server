@@ -62,6 +62,7 @@ export class UsersService {
                 return { error: 'No registration location found.' };
             }
         } catch (error) {
+            console.log(error);
             return { error: 'An error occurred while fetching registration location.' };
         }
     }
