@@ -47,8 +47,23 @@ export class UsersController {
     @Get('/registration-location')
     @UseGuards(AuthenticatedGuard)
     async getRegistrationLocation(@Request() req) {
-            const registrationLocation = await this.usersService.getRegistrationLocation(req.user.username);
-            return registrationLocation;
+        try {
+            const { username } = req.user;
+            const user = await this.usersService.findOne({ where: { username } });
+            if (!user) {
+                return { error: 'Пользователь не найден.' };
+            }
+
+            const registrationLocation = user.registrationLocation;
+            if (!registrationLocation) {
+                return { error: 'Информация о месте регистрации недоступна.' };
+            }
+
+            return { registrationLocation };
+        } catch (error) {
+            console.log(error);
+            return { error: 'Произошла ошибка при получении информации о месте регистрации.' };
+        }
     }
 
     @Post('/update-location')
@@ -59,7 +74,7 @@ export class UsersController {
         @Body('currentStreet') currentStreet: string,
     ) {
         try {
-            const { username } = req.user; // Получаем username из текущего пользователя
+            const { username } = req.user;
             const user = await this.usersService.findOne({ where: { username } });
             if (!user) {
                 return { error: 'User not found.' };

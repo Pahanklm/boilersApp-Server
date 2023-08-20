@@ -52,20 +52,6 @@ export class UsersService {
 
         return user.save();
     }
-
-    async getRegistrationLocation(username: string) {
-        try {
-            const user = await this.UsersService.findOne({ where: { username } });
-            if (user && user.registrationLocation) {
-                return user;
-            } else {
-                return { error: 'No registration location found.' };
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
     async updateCurrentLocation(userId: string, currentCity: string, currentStreet: string): Promise<void> {
         const user = await this.userModel.findByPk(userId);
         if (user) {
