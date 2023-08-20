@@ -6,7 +6,6 @@ import {
     Body,
     Header,
     HttpCode,
-    Param,
     Post,
     Request,
     UseGuards,
