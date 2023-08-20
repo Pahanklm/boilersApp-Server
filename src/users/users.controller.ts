@@ -68,6 +68,7 @@ export class UsersController {
             await this.usersService.updateCurrentLocation(user.id, currentCity, currentStreet);
             return { message: 'Location updated successfully.' };
         } catch (error) {
+            console.log(error);
             return { error: 'An error occurred while updating location.' };
         }
     }
