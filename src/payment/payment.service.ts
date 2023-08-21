@@ -22,7 +22,7 @@ export class PaymentService {
                 data: {
                     amount: {
                         value: MakePaymentDto.amount,
-                        currency: 'UAH',
+                        currency: 'RUB',
                     },
                     capture: true,
                     confirmation: {
