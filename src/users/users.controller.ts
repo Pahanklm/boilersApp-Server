@@ -43,7 +43,6 @@ export class UsersController {
         req.session.destroy();
         return { msg: 'session has ended' };
     }
-
     @Get('/registration-location')
     @UseGuards(AuthenticatedGuard)
     async getRegistrationLocation(@Request() req) {
@@ -53,18 +52,19 @@ export class UsersController {
             if (!user) {
                 return { error: 'Пользователь не найден.' };
             }
-
+    
             const registrationLocation = user.registrationLocation;
             if (!registrationLocation) {
                 return { error: 'Информация о месте регистрации недоступна.' };
             }
-
-            return { registrationLocation };
+    
+            return registrationLocation; // Просто возвращаем объект registrationLocation
         } catch (error) {
             console.log(error);
             return { error: 'Произошла ошибка при получении информации о месте регистрации.' };
         }
     }
+    
 
     @Post('/update-location')
     @UseGuards(AuthenticatedGuard)
